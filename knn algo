@@ -1,0 +1,146 @@
+#                                          KNN ALGORITHM
+
+
+* It stands for k nearest neighbour alogorithm
+* it is a supervised learning alogorithm 
+* it has 1).REGRESSION: TRYing to predict the numerical data 
+* 2). classification: tryting to predict the categorical data
+* it is one of the simplest ML
+* it assumes the similarities between the new cases or the data and available cases and put the new available cases into the 
+* to the categorical data that is more similar to the available category
+
+* it is also calle lazy learner algorithm bcz it doesnot learn from trainset immediately instaed  it stores the dataset 
+* at the time of classification it performs action 
+
+*  knn is a non parametric it doesnot make any assumptions on underlining dataset 
+
+
+
+# why do we need a knn algorithm
+
+* if we have 2 categorical block of data and one new datapoint is there to assign this new datapoint we use knn 
+
+# how does knn works
+
+* step:1
+* firstly it selects the no of k of neighbours.
+* step 2:
+* calculate the euclidean distance of k neighbors.
+* step 3:
+* it takes the knn as per the euclidean distance 
+* step 4:
+* among these knn count the no of datapoints on each category
+* step 5:
+* assign a new datapoints to the category for which the no of neighbors are max 
+* step 6:
+*  our model is ready
+
+# how to choose k value in knn
+
+* by default it takes k=5 always preferres'
+* k=1 or k=2 can be noisy and leads to the effects of out;iers in the model
+* for larger values k is good execution process can be difficult
+* 
+
+# ADVANTAGES:
+
+
+
+* IT IS simple to implement
+* it is robust to noisy training dataset
+* it can be more effective if the tarining data is large 
+
+# DIS_ADV
+
+
+* the computational cost is high bcz of calculating the distance between all the tarining points for large samples
+* always determine value of k 
+
+# how to implement the knn algorithm
+
+
+* data pre_processing step
+* fitting the knn to the tarining dataset
+* predicting the testing results
+* test accuracy of results
+* visualizing the test results
+
+import numpy as np
+import pandas as pd
+import os
+import glob
+import matplotlib.pyplot as plt
+import seaborn as sbn
+
+x=pd.read_excel(r"C:\Users\harid\OneDrive\Desktop\python\data\datasets\Product_sales_v1.xlsx")
+
+x.shape
+
+x.columns
+
+# extarcting the independent and dependent variables
+
+a=x.iloc[:,[0,1]]
+b=x.iloc[:,1]
+
+a
+
+b
+
+# splitting the data into train test 
+
+from sklearn.model_selection import train_test_split
+a_train,a_test,b_train,b_test=train_test_split(a,b,test_size=0.25,random_state=42)
+
+len(a_train)
+
+len(a_test)
+
+# feature scaling
+
+from sklearn.preprocessing import StandardScaler
+
+st=StandardScaler()
+a_train=st.fit_transform(a_train)
+a_test=st.fit_transform(a_test)
+
+a_train
+
+a_test
+
+# knn fitting
+
+from sklearn.neighbors import KNeighborsClassifier
+
+classifier=KNeighborsClassifier(n_neighbors=5,p=2)
+classifier.fit(a_train,b_train)
+classifier.get_params()
+
+y_predict=classifier.predict(a_test)
+
+y_predict
+
+list(pd.crosstab(b_test,y_predict))
+
+from sklearn.metrics import confusion_matrix
+confusion_matrix(b_test,y_predict)
+
+# visualization
+
+
+
+# real world appications for knn alo]gorithm
+
+* understand the credit racing
+* currency exchange rate
+* bank rup
+* trading
+* credit rating
+* bank customer profiling
+
+
+# knn we used to treat the missing value for that purpose
+
+
+this is the full process of knn algo to create a model
+
